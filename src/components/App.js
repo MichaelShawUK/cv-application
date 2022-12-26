@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 5px 0;
   }
 
-  .previous-job {
+  .previous-job, .qualification {
     font-size: 0.7rem;
     margin: 10px 0;
   }
@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 10px;
   }
 
-  .job-position, .company-name {
+  .job-position, .company-name, .achievement, .institute {
     display: inline;
     font-weight: bold;
   }
