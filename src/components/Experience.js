@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { FaMixer } from "react-icons/fa";
+import { FaMixer, FaRegPlusSquare } from "react-icons/fa";
 import styled from "styled-components";
 
 const StyledExperienceWrapper = styled.div`
@@ -7,6 +7,9 @@ const StyledExperienceWrapper = styled.div`
     text-shadow: 0 0 5px black;
     cursor: pointer;
   }
+`
+const StyledJobInput = styled.div`
+  margin-bottom: 3px;
 `
 
 class PreviousJob extends Component {
@@ -28,7 +31,7 @@ class PreviousJob extends Component {
 class JobInput extends Component {
   render() {
     return (
-      <div>
+      <StyledJobInput>
         <div className="job-input-container">
           <input placeholder="Job Title"></input>
           <input placeholder="Company"></input>
@@ -36,7 +39,7 @@ class JobInput extends Component {
           <input placeholder="Year End"></input>
         </div>
         <textarea placeholder="Job Description"></textarea>
-      </div>
+      </StyledJobInput>
     )
   }
 }
@@ -72,19 +75,60 @@ class Experience extends Component {
       edit: false,
     }
     this.handleClick = this.handleClick.bind(this);
+    this.handleAddJobClick = this.handleAddJobClick.bind(this);
+    this.handleUpdateJobClick = this.handleUpdateJobClick.bind(this);
   }
 
   handleClick() {
-    this.setState({edit: true});
+    this.setState({
+      edit: true,
+      experience: [null],
+    });
+  }
+
+  handleAddJobClick() {
+    this.setState({
+      experience: this.state.experience.concat([null]),
+    })
+  }
+
+  handleUpdateJobClick(e) {
+    e.preventDefault();
+    const newExperience = [];
+    const prevJob = {};
+
+
+    for (let i = 0; i < e.target.form.length - 1; i = i+5) {
+      prevJob.jobPosition = e.target.form[i].value;
+      prevJob.companyName = e.target.form[i + 1].value;
+      prevJob.yearStart = e.target.form[i + 2].value;
+      prevJob.yearEnd = e.target.form[i + 3].value;
+      prevJob.jobDescription = e.target.form[i + 4].value;
+
+      let target = Object.assign({}, prevJob);
+      newExperience.push(target);
+    }
+    this.setState({
+      experience: newExperience,
+      edit: false,
+    })
   }
 
   render() {
     if (this.state.edit) {
       return (
-        <>
-          <h4>EXPERIENCE</h4>
-          <JobInput />
-        </>
+        <div>
+          <form>
+            <h4>EXPERIENCE</h4>
+            {this.state.experience.map((job, index) => {
+              return (
+                <JobInput key={`job${index}`} />
+              )
+            })}
+            <FaRegPlusSquare onClick={this.handleAddJobClick}/>
+            <button onClick={this.handleUpdateJobClick}>UPDATE</button>
+          </form>
+        </div>
       )
     }
 
