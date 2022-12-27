@@ -1,7 +1,7 @@
 import { Component } from "react";
 import styled from "styled-components";
 
-const StyledBio = styled.p`
+const StyledBio = styled.div`
   font-size: 0.7rem;
   cursor: pointer;
 

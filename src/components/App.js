@@ -103,6 +103,15 @@ const GlobalStyle = createGlobalStyle`
       color: #b3e4b0;
     }
   }
+
+  .job-input-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  .job-input-container input {
+    font-size: 0.7rem;
+  }
 `
 
 class App extends Component {
