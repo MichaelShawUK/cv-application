@@ -112,6 +112,33 @@ const GlobalStyle = createGlobalStyle`
   .job-input-container input {
     font-size: 0.7rem;
   }
+
+  .qual-input {
+    display: grid;
+    grid-template-columns: 20% 40% 40%;
+    gap: 1px;
+    position: relative;
+  }
+
+  .delete-qual {
+    position: absolute;
+    right: -18px;
+    align-self: center;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .qual-input input {
+    font-size: 0.7rem;
+    padding: 1px;
+  }
+
+  .qual-input textarea {
+    grid-column: 1 / -1;
+    margin-bottom: 12px;
+    font-size: 0.7rem;
+    padding: 1px;
+  }
 `
 
 class App extends Component {

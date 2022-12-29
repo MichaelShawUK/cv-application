@@ -1,5 +1,15 @@
 import { Component } from 'react';
-import { FaMixer } from "react-icons/fa";
+import { FaMixer, FaRegPlusSquare } from "react-icons/fa";
+import styled from 'styled-components';
+
+const StyledEducationWrapper = styled.div`
+  &:hover {
+    text-shadow: 0 0 5px black;
+    cursor: pointer;
+  }
+`
+
+
 
 
 class Qualification extends Component {
@@ -16,23 +26,138 @@ class Qualification extends Component {
   }
 }
 
-class Education extends Component {
+class QualificationInput extends Component {
   render() {
+    return (
+      <div className="qual-input">
+        <input 
+          defaultValue={this.props.year}
+          placeholder="Year"></input>
+        <input 
+          defaultValue={this.props.achievement}
+          placeholder="Qualification"></input>
+        <input 
+          defaultValue={this.props.institute}
+          placeholder="Institute"></input>
+        <textarea 
+          defaultValue={this.props.description}
+          placeholder="Description"></textarea>
+      </div>
+    )
+  }
+}
+
+class Education extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      education: [
+        {
+          year: "2019",
+          achievement: "BSc Computer Science",
+          institute: "Foo University",
+          description: "Mauris tincidunt turpis lacus, id aliquam lacus consequat maximus. Proin pulvinar nunc sit amet commodo.",
+        },
+        {
+          year: "2016",
+          achievement: "Diploma",
+          institute: "Acme College",
+          description: "Maecenas sit amet mi lorem. Integer et odio commodo lectus ullamcorper convallis eu sit amet risus. Etiam est.",
+        }
+      ],
+      edit: false,
+    }
+    this.handleClick = this.handleClick.bind(this);
+    this.handleAddQualificationClick = this.handleAddQualificationClick.bind(this);
+    this.handleUpdateEducationClick = this.handleUpdateEducationClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState({
+      edit: true,
+    });
+  }
+
+  handleAddQualificationClick() {
+    const emptyQualification = {
+      year: '',
+      achievement: '',
+      institute: '',
+      description: '',
+    }
+
+    this.setState({
+      education: this.state.education.concat([emptyQualification])
+    })
+  }
+
+  handleUpdateEducationClick(e) {
+    e.preventDefault();
+    const newEducation = [];
+    const qual = {};
+
+    for (let i = 0; i < e.target.form.length - 1; i = i + 4) {
+      qual.year = e.target.form[i].value;
+      qual.achievement = e.target.form[i + 1].value;
+      qual.institute = e.target.form[i + 2].value;
+      qual.description = e.target.form[i + 3].value;
+
+      let currentQual = Object.assign({}, qual);
+      newEducation.push(currentQual);
+    }
+
+    const removeEmpty = newEducation.filter(input =>
+      (input.year || input.achievement || input.institute || input.description)
+    )
+
+    this.setState({
+      education: removeEmpty,
+      edit: false,
+    })
+  }
+
+  render() {
+    if (this.state.edit) {
+      return (
+        <>
+          <h4>EDUCATION</h4>
+            <form>      
+              {this.state.education.map((qualification, index) => {
+                return (
+                  <QualificationInput
+                    year={qualification.year}
+                    achievement={qualification.achievement}
+                    institute={qualification.institute}
+                    description={qualification.description}
+                    key={`qualificationInput${index}`}
+                  />
+            
+                )
+              })}
+              <FaRegPlusSquare onClick={this.handleAddQualificationClick}/>
+              <button onClick={this.handleUpdateEducationClick}>UPDATE</button>
+          </form>
+        </>
+      )
+    }
+
+
     return (
       <>
         <h4>EDUCATION</h4>
-        <Qualification 
-          year="2019"
-          achievement="BSc Computer Science"
-          institute="Foo University"
-          description="Mauris tincidunt turpis lacus, id aliquam lacus consequat maximus. Proin pulvinar nunc sit amet commodo."
-        />
-        <Qualification 
-          year="2016"
-          achievement="Diploma"
-          institute="Acme College"
-          description="Maecenas sit amet mi lorem. Integer et odio commodo lectus ullamcorper convallis eu sit amet risus. Etiam est."
-        />
+        <StyledEducationWrapper onClick={this.handleClick}>
+          {this.state.education.map((qualification, index) => {
+            return (
+              <Qualification
+                year={qualification.year}
+                achievement={qualification.achievement}
+                institute={qualification.institute}
+                description={qualification.description}
+                key={`qualification${index}`}
+              />
+            )
+          })}
+        </StyledEducationWrapper>
       </>
     )
   }

@@ -11,7 +11,7 @@ const StyledImg = styled.img`
   cursor: pointer;
 
   &:hover {
-    scale: 0.95;
+    box-shadow: 0 0 5px white;
   }
 `
 
