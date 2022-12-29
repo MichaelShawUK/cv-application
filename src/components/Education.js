@@ -110,10 +110,14 @@ class Education extends Component {
       (input.year || input.achievement || input.institute || input.description)
     )
 
-    this.setState({
-      education: removeEmpty,
-      edit: false,
-    })
+    this.setState({education: removeEmpty});
+
+    if (removeEmpty.length === 0) {
+      this.setState({edit: true})
+    } else {
+      this.setState({edit: false})
+    }
+
   }
 
   render() {
