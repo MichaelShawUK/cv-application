@@ -8,9 +8,6 @@ const StyledExperienceWrapper = styled.div`
     cursor: pointer;
   }
 `
-const StyledJobInput = styled.div`
-  margin-bottom: 3px;
-`
 
 class PreviousJob extends Component {
   render() {
@@ -31,15 +28,28 @@ class PreviousJob extends Component {
 class JobInput extends Component {
   render() {
     return (
-      <StyledJobInput>
-        <div className="job-input-container">
-          <input placeholder="Job Title"></input>
-          <input placeholder="Company"></input>
-          <input placeholder="Year Start"></input>
-          <input placeholder="Year End"></input>
-        </div>
-        <textarea placeholder="Job Description"></textarea>
-      </StyledJobInput>
+      <div className="job-input">
+        <input 
+          placeholder="Job Title"
+          defaultValue={this.props.jobPosition}
+        ></input>
+        <input 
+          placeholder="Company"
+          defaultValue={this.props.companyName}
+        ></input>
+        <input 
+          placeholder="Year Start"
+          defaultValue={this.props.yearStart}
+        ></input>
+        <input 
+          placeholder="Year End"
+          defaultValue={this.props.yearEnd}
+        ></input>
+        <textarea 
+          placeholder="Job Description"
+          defaultValue={this.props.jobDescription}
+        ></textarea>
+      </div>
     )
   }
 }
@@ -82,13 +92,19 @@ class Experience extends Component {
   handleClick() {
     this.setState({
       edit: true,
-      experience: [null],
     });
   }
 
   handleAddJobClick() {
+    const emptyJob = {
+      jobPosition: '',
+      companyName: '',
+      yearStart: '',
+      yearEnd: '',
+      jobDescription: '',
+    }
     this.setState({
-      experience: this.state.experience.concat([null]),
+      experience: this.state.experience.concat([emptyJob]),
     })
   }
 
@@ -108,10 +124,18 @@ class Experience extends Component {
       let target = Object.assign({}, prevJob);
       newExperience.push(target);
     }
-    this.setState({
-      experience: newExperience,
-      edit: false,
-    })
+
+    const removeEmptyJob = newExperience.filter(job => 
+      (job.jobPosition || job.companyName || job.yearStart || job.yearEnd || job.jobDescription)
+    )
+
+    this.setState({experience: removeEmptyJob});
+
+    if (removeEmptyJob.length === 0) {
+      this.setState({edit: true})
+    } else {
+      this.setState({edit: false})
+    }
   }
 
   render() {
@@ -122,7 +146,14 @@ class Experience extends Component {
             <h4>EXPERIENCE</h4>
             {this.state.experience.map((job, index) => {
               return (
-                <JobInput key={`job${index}`} />
+                <JobInput
+                  jobPosition = {job.jobPosition}
+                  companyName = {job.companyName}
+                  yearStart = {job.yearStart}
+                  yearEnd = {job.yearEnd}
+                  jobDescription = {job.jobDescription}
+                  key={`job${index}`} 
+                />
               )
             })}
             <FaRegPlusSquare onClick={this.handleAddJobClick}/>
