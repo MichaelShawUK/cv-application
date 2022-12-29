@@ -31,7 +31,6 @@ class Skills extends Component {
   handleClick() {
     this.setState({
       edit: true,
-      // skills: [null],
     });
   };
 

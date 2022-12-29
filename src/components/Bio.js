@@ -29,8 +29,13 @@ class Bio extends Component {
     e.preventDefault();
     this.setState({
       bio: e.target[0].value,
-      edit: false,
     })
+    
+    if (e.target[0].value) {
+      this.setState({edit: false});
+    } else {
+      this.setState({edit:true});
+    }
 
   }
 
