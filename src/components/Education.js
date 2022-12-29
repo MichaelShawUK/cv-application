@@ -110,10 +110,20 @@ class Education extends Component {
       (input.year || input.achievement || input.institute || input.description)
     )
 
+    const emptyQualification = {
+      year: '',
+      achievement: '',
+      institute: '',
+      description: '',
+    }
+
     this.setState({education: removeEmpty});
 
     if (removeEmpty.length === 0) {
-      this.setState({edit: true})
+      this.setState({
+        edit: true,
+        education: [emptyQualification],
+      })
     } else {
       this.setState({edit: false})
     }
@@ -138,8 +148,13 @@ class Education extends Component {
             
                 )
               })}
-              <FaRegPlusSquare onClick={this.handleAddQualificationClick}/>
-              <button onClick={this.handleUpdateEducationClick}>UPDATE</button>
+              <div className="flex">
+                <FaRegPlusSquare 
+                  onClick={this.handleAddQualificationClick}
+                  className="plus-btn"
+                />
+                <button onClick={this.handleUpdateEducationClick}>UPDATE</button>
+              </div>
           </form>
         </>
       )

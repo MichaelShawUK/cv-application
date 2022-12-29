@@ -84,8 +84,10 @@ class Skills extends Component {
                 )
               })}
             </ul>
-            <FaRegPlusSquare className="add-skill" onClick={this.handleNewSkillClick}/>
-            <button onClick={this.handleUpdateClick}>UPDATE</button>
+            <FaRegPlusSquare className="plus-btn" onClick={this.handleNewSkillClick}/>
+            <button
+              className="sidebar-btn"
+              onClick={this.handleUpdateClick}>UPDATE</button>
           </form>
         </StyledSkills>
       )

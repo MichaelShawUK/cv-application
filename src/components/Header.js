@@ -7,9 +7,6 @@ const StyledHeader = styled.div`
   &:hover {
     text-shadow: 0px 0px 5px black;
   }
-  /* background-color: #e9bd88ad; */
-  /* color: #222126; */
-  /* padding: 5px 40px 5px 10px; */
 `
 
 class Header extends Component {
@@ -32,13 +29,18 @@ class Header extends Component {
   }
 
   handleSubmit = (e) => {
-    console.log(e);
     e.preventDefault();
     this.setState({
       name: e.target[0].value,
       title: e.target[1].value,
-      edit: false,
     })
+
+    if (e.target[0].value || e.target[1].value) {
+      this.setState({edit: false});
+    } else {
+      this.setState({edit: true});
+    }
+
   }
 
   render() {
@@ -46,9 +48,17 @@ class Header extends Component {
       return (
         <StyledHeader id="header-input">
           <form onSubmit={this.handleSubmit}>
-            <input defaultValue={this.state.name}></input>
-            <input defaultValue={this.state.title}></input>
-            <button>UPDATE</button>
+            <div class="grid-container">
+              <input
+                defaultValue={this.state.name}
+                placeholder="Name"
+              ></input>
+              <input
+                defaultValue={this.state.title}
+                placeholder="Profession"
+              ></input>
+              <button>UPDATE</button>
+            </div>
           </form>
         </StyledHeader>
       )

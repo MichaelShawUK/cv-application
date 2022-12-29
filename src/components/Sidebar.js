@@ -9,7 +9,7 @@ const StyledSidebar = styled.div`
   background-color: #222126;
   color: white;
   display: grid;
-  grid-template-rows: 28% 30% 1fr;
+  grid-template-rows: 27% 33% 1fr;
 `
 
 class Sidebar extends Component {

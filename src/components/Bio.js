@@ -46,8 +46,13 @@ class Bio extends Component {
         <h4>ABOUT ME</h4>
         <StyledBio>
           <form onSubmit={this.handleSubmit}>
-            <textarea defaultValue={this.state.bio} rows="5"></textarea>
-            <button>UPDATE</button>
+            <textarea 
+              defaultValue={this.state.bio} 
+              placeholder="Brief Description"
+              rows="5"></textarea>
+            <div className="flex right">
+              <button>UPDATE</button>
+            </div>
           </form>
         </StyledBio>
         </>

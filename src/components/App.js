@@ -71,12 +71,30 @@ const GlobalStyle = createGlobalStyle`
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 0.7rem;
     width: 100%;
+    padding: 1px;
     display: block;
     resize: none;
   }
 
   #header-input {
     margin-top: 25px;
+  }
+
+  .grid-container {
+    gap: 1px;
+    justify-content: space-between;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-areas:  "a ."
+                          "b c"
+  }
+
+  .grid-container input {
+    height: 25px;
+  }
+
+  .grid-container button {
+    grid-area: c;
   }
 
   .check-mark {
@@ -86,42 +104,40 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .skill-input {
-    width: 75%;
+    width: 80%;
     font-size: 0.6rem;
     padding: 1px;
   }
 
-  .skill-trash {
-    margin-left: 5px;
-    position: relative;
-    top: 1px;
-  }
 
-  .add-skill {
+
+  /* .add-skill {
     font-size: 1.5rem;
     &:hover {
       color: #b3e4b0;
     }
-  }
+  } */
 
 
   .qual-input {
     display: grid;
     grid-template-columns: 20% 40% 40%;
     gap: 1px;
+    margin-top: 10px;
   }
 
 
   .qual-input textarea,
   .job-input textarea {
     grid-column: 1 / -1;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
   }
 
   .job-input {
     display: grid;
     grid-template-columns: 50% 50%;
     gap: 1px;
+    margin-top: 10px;
   }
 
   .job-input input,
@@ -131,6 +147,50 @@ const GlobalStyle = createGlobalStyle`
     font-size: 0.7rem;
     padding: 1px;
   }
+
+  button {
+    font-size: 0.8rem;
+    border: none;
+    background-color: #cb2626;
+    color: #fff;
+    box-shadow: 0 0 5px black;
+    padding: 3px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 2px 0;
+    width: 100px;
+    border-radius: 5px;
+
+    &:hover {
+    transform: scale(0.95);
+    }
+  }
+
+  .sidebar-btn {
+    box-shadow: 0 0 5px white;
+    display: block;
+    margin-top: 10px;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .right {
+    justify-content: flex-end;
+  }
+
+  .plus-btn {
+    font-size: 1rem;
+    height: 20px;
+    cursor: pointer;
+    &:hover {
+      color: green;
+    }
+  }
+
+  
 `
 
 class App extends Component {

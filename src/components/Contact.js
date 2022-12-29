@@ -14,7 +14,7 @@ const StyledContact = styled.div`
 
 const StyledInput = styled.input`
   font-size: 0.6rem;
-  padding: 2px 0;
+  padding: 1px 0;
   width: 80%;
 `
 
@@ -57,7 +57,7 @@ class Contact extends Component {
             <StyledInput defaultValue={this.state.email}></StyledInput>
             <h4><FaGlobe /> Website</h4>
             <StyledInput defaultValue={this.state.website}></StyledInput>
-            <button>UPDATE</button>
+            <button className="sidebar-btn">UPDATE</button>
           </form>
         </StyledContact>
       )

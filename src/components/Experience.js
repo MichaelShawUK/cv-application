@@ -131,8 +131,19 @@ class Experience extends Component {
 
     this.setState({experience: removeEmptyJob});
 
+    const emptyJob = {
+      jobPosition: '',
+      companyName: '',
+      yearStart: '',
+      yearEnd: '',
+      jobDescription: '',
+    }
+
     if (removeEmptyJob.length === 0) {
-      this.setState({edit: true})
+      this.setState({
+        edit: true,
+        experience: [emptyJob],
+      })
     } else {
       this.setState({edit: false})
     }
@@ -156,8 +167,13 @@ class Experience extends Component {
                 />
               )
             })}
-            <FaRegPlusSquare onClick={this.handleAddJobClick}/>
-            <button onClick={this.handleUpdateJobClick}>UPDATE</button>
+            <div className="flex">
+              <FaRegPlusSquare 
+                onClick={this.handleAddJobClick}
+                className="plus-btn"
+              />
+              <button onClick={this.handleUpdateJobClick}>UPDATE</button>
+            </div>
           </form>
         </div>
       )
