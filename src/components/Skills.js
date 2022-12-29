@@ -31,7 +31,7 @@ class Skills extends Component {
   handleClick() {
     this.setState({
       edit: true,
-      skills: [null],
+      // skills: [null],
     });
   };
 
@@ -78,7 +78,7 @@ class Skills extends Component {
               {skills.map((skill, index) => {
                 return (<li key={`input${index}`}>
                           <input
-                          placeholder="Skill"
+                          defaultValue={skill}
                           className="skill-input"></input>
             
                         </li>

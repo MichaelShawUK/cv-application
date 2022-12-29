@@ -88,6 +88,7 @@ const GlobalStyle = createGlobalStyle`
   .skill-input {
     width: 75%;
     font-size: 0.6rem;
+    padding: 1px;
   }
 
   .skill-trash {
