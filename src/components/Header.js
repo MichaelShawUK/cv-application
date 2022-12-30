@@ -48,7 +48,7 @@ class Header extends Component {
       return (
         <StyledHeader id="header-input">
           <form onSubmit={this.handleSubmit}>
-            <div class="grid-container">
+            <div className="grid-container">
               <input
                 defaultValue={this.state.name}
                 placeholder="Name"
