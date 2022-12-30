@@ -8,7 +8,7 @@ const StyledBio = styled.div`
   &:hover {
     text-shadow: 0px 0px 5px black;
   }
-`;
+`
 
 class Bio extends Component {
   constructor(props) {
@@ -36,25 +36,27 @@ class Bio extends Component {
     } else {
       this.setState({edit:true});
     }
-
   }
 
   render() {
-    if (this.state.edit) {
+    const { bio, edit } = this.state;
+
+    if (edit) {
       return (
         <>
-        <h4>ABOUT ME</h4>
-        <StyledBio>
-          <form onSubmit={this.handleSubmit}>
-            <textarea 
-              defaultValue={this.state.bio} 
-              placeholder="Brief Description"
-              rows="5"></textarea>
-            <div className="flex right">
-              <button>UPDATE</button>
-            </div>
-          </form>
-        </StyledBio>
+          <h4>ABOUT ME</h4>
+          <StyledBio>
+            <form onSubmit={this.handleSubmit}>
+              <textarea 
+                defaultValue={bio} 
+                placeholder="Brief Description"
+                rows="5">
+              </textarea>
+              <div className="flex right">
+                <button>UPDATE</button>
+              </div>
+            </form>
+          </StyledBio>
         </>
       )
     }
@@ -63,7 +65,7 @@ class Bio extends Component {
       <>
         <h4>ABOUT ME</h4>
         <StyledBio onClick={this.handleClick}>
-          {this.state.bio}
+          {bio}
         </StyledBio>
       </>
     );

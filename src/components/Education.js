@@ -9,9 +9,6 @@ const StyledEducationWrapper = styled.div`
   }
 `
 
-
-
-
 class Qualification extends Component {
   render() {
     return (
@@ -127,7 +124,6 @@ class Education extends Component {
     } else {
       this.setState({edit: false})
     }
-
   }
 
   render() {
@@ -145,7 +141,6 @@ class Education extends Component {
                     description={qualification.description}
                     key={`qualificationInput${index}`}
                   />
-            
                 )
               })}
               <div className="flex">
@@ -159,7 +154,6 @@ class Education extends Component {
         </>
       )
     }
-
 
     return (
       <>

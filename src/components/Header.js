@@ -40,21 +40,22 @@ class Header extends Component {
     } else {
       this.setState({edit: true});
     }
-
   }
 
   render() {
-    if (this.state.edit) {
+    const { edit, name, title } = this.state;
+
+    if (edit) {
       return (
         <StyledHeader id="header-input">
           <form onSubmit={this.handleSubmit}>
             <div className="grid-container">
               <input
-                defaultValue={this.state.name}
+                defaultValue={name}
                 placeholder="Name"
               ></input>
               <input
-                defaultValue={this.state.title}
+                defaultValue={title}
                 placeholder="Profession"
               ></input>
               <button>UPDATE</button>
@@ -66,8 +67,8 @@ class Header extends Component {
 
     return (
       <StyledHeader onClick={() => this.handleClick()}>
-        <h1>{this.state.name}</h1>
-        <h3>{this.state.title}</h3>
+        <h1>{name}</h1>
+        <h3>{title}</h3>
       </StyledHeader>
     )
   }

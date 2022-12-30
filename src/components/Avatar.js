@@ -59,7 +59,6 @@ class Avatar extends Component {
       )
     }
 
-
     return (
       <StyledImg 
         src={this.state.picture} 

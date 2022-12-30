@@ -45,33 +45,33 @@ class Contact extends Component {
     })
   }
 
-
   render() {
-    if (this.state.edit) {
+    const {edit, email, phone, website} = this.state;
+    
+    if (edit) {
       return (
         <StyledContact>
           <form onSubmit={this.handleSubmit}>
             <h4><FaPhone /> Phone</h4>
-            <StyledInput defaultValue={this.state.phone}></StyledInput>
+            <StyledInput defaultValue={phone}></StyledInput>
             <h4><FaEnvelope /> Email</h4>
-            <StyledInput defaultValue={this.state.email}></StyledInput>
+            <StyledInput defaultValue={email}></StyledInput>
             <h4><FaGlobe /> Website</h4>
-            <StyledInput defaultValue={this.state.website}></StyledInput>
+            <StyledInput defaultValue={website}></StyledInput>
             <button className="sidebar-btn">UPDATE</button>
           </form>
         </StyledContact>
       )
     }
 
-
     return (
       <StyledContact onClick={this.handleClick}>
         <h4><FaPhone /> Phone</h4>
-        <p>{this.state.phone}</p>
+        <p>{phone}</p>
         <h4><FaEnvelope /> Email</h4>
-        <p>{this.state.email}</p>
+        <p>{email}</p>
         <h4><FaGlobe /> Website</h4>
-        <p>{this.state.website}</p>        
+        <p>{website}</p>        
       </StyledContact>
     )
   }

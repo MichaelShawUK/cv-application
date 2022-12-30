@@ -59,15 +59,13 @@ class Skills extends Component {
         skills: [null],
         edit: true,
       })
-    }
-
-    
+    }    
   }
 
   render() {
     const { skills, edit } = this.state;
+
     if (edit) {
-      
       return (
         <StyledSkills>
           <h3>Skills</h3>
@@ -79,7 +77,6 @@ class Skills extends Component {
                           <input
                           defaultValue={skill}
                           className="skill-input"></input>
-            
                         </li>
                 )
               })}
@@ -92,7 +89,6 @@ class Skills extends Component {
         </StyledSkills>
       )
     }
-
 
     return (
       <StyledSkills onClick={this.handleClick}>

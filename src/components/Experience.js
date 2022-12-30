@@ -113,7 +113,6 @@ class Experience extends Component {
     const newExperience = [];
     const prevJob = {};
 
-
     for (let i = 0; i < e.target.form.length - 1; i = i+5) {
       prevJob.jobPosition = e.target.form[i].value;
       prevJob.companyName = e.target.form[i + 1].value;
@@ -178,7 +177,6 @@ class Experience extends Component {
         </div>
       )
     }
-
 
     return (
       <>
