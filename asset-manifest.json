@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/cv-application/static/js/main.0740b698.js",
+    "static/media/avatar-square.jpg": "/cv-application/static/media/avatar-square.97a0939ecc3bbe7bbc35.jpg",
+    "index.html": "/cv-application/index.html",
+    "main.0740b698.js.map": "/cv-application/static/js/main.0740b698.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.0740b698.js"
+  ]
+}
