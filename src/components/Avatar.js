@@ -1,6 +1,6 @@
-import { Component } from "react";
+import { useState } from "react";
 import { FaFileImage } from "react-icons/fa";
-import profilePic from '../assets/avatar-square.jpg';
+import profilePic from "../assets/avatar-square.jpg";
 import styled from "styled-components";
 
 const StyledImg = styled.img`
@@ -9,65 +9,51 @@ const StyledImg = styled.img`
   align-self: center;
   width: 80%;
   cursor: pointer;
-
   &:hover {
     box-shadow: 0 0 5px white;
   }
-`
+`;
 
-class Avatar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      picture: profilePic,
-      edit: false,
-    }
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+const Avatar = () => {
+  const [picture, setPicture] = useState(profilePic);
+  const [edit, setEdit] = useState(false);
+
+  function handleClick() {
+    setEdit(true);
   }
 
-  handleClick() {
-    this.setState({edit: true});
-  }
-
-  handleChange(e) {
+  function handleChange(e) {
     let file = e.target.files[0];
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = e => {
-      this.setState({
-        picture: reader.result,
-        edit: false
-      })
-
-    }
+    reader.onload = (e) => {
+      setPicture(reader.result);
+      setEdit(false);
+    };
   }
 
-  render() {
-    if (this.state.edit) {
-      return (
-        <label htmlFor="file-input"><FaFileImage className="upload-icon"/>
-          <input
-            id="file-input"
-            type="file"
-            accept="image/png, image.jpg"
-            onChange={this.handleChange}
-          >
-          </input>
-          Upload profile image with square dimensions
-        </label>
-      )
-    }
-
+  const DisplayAvatar = () => {
     return (
-      <StyledImg 
-        src={this.state.picture} 
-        alt="profile" 
-        onClick={this.handleClick}
-      >
-      </StyledImg>
-    )
-  }
-}
+      <StyledImg src={picture} alt="profile" onClick={handleClick}></StyledImg>
+    );
+  };
+
+  const EditAvatar = () => {
+    return (
+      <label htmlFor="file-input">
+        <FaFileImage className="upload-icon" />
+        <input
+          id="file-input"
+          type="file"
+          accept="image/png, image.jpg"
+          onChange={handleChange}
+        ></input>
+        Upload profile image with square dimensions
+      </label>
+    );
+  };
+
+  return edit ? <EditAvatar /> : <DisplayAvatar />;
+};
 
 export default Avatar;
