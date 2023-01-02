@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const StyledBio = styled.div`
@@ -10,66 +10,53 @@ const StyledBio = styled.div`
   }
 `
 
-class Bio extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lectus lectus, maximus a magna sit amet, blandit aliquam risus. Suspendisse eleifend est id leo pulvinar tempor. Phasellus imperdiet eget neque quis fringilla. Sed pulvinar tellus at odio finibus, ac molestie dolor.",
-      edit: false,
-    }
-    this.handleClick = this.handleClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+const Bio = () => {
+  const [bio, setBio] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lectus lectus, maximus a magna sit amet, blandit aliquam risus. Suspendisse eleifend est id leo pulvinar tempor. Phasellus imperdiet eget neque quis fringilla. Sed pulvinar tellus at odio finibus, ac molestie dolor.");
+  const [edit, setEdit] = useState(false);
+
+  function handleClick() {
+    setEdit(true);
   }
 
-  handleClick() {
-    this.setState({edit: true});
-  }
-
-  handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    this.setState({
-      bio: e.target[0].value,
-    })
-    
-    if (e.target[0].value) {
-      this.setState({edit: false});
-    } else {
-      this.setState({edit:true});
-    }
+    setBio(e.target[0].value);
+    if (e.target[0].value) setEdit(false);
+    else setEdit(true);
   }
 
-  render() {
-    const { bio, edit } = this.state;
-
-    if (edit) {
-      return (
-        <>
-          <h4>ABOUT ME</h4>
-          <StyledBio>
-            <form onSubmit={this.handleSubmit}>
-              <textarea 
-                defaultValue={bio} 
-                placeholder="Brief Description"
-                rows="5">
-              </textarea>
-              <div className="flex right">
-                <button>UPDATE</button>
-              </div>
-            </form>
-          </StyledBio>
-        </>
-      )
-    }
-
+  const EditBio = () => {
     return (
       <>
         <h4>ABOUT ME</h4>
-        <StyledBio onClick={this.handleClick}>
+        <StyledBio>
+          <form onSubmit={handleSubmit}>
+            <textarea 
+              defaultValue={bio} 
+              placeholder="Brief Description"
+              rows="5">
+            </textarea>
+            <div className="flex right">
+              <button>UPDATE</button>
+            </div>
+          </form>
+        </StyledBio>
+      </>
+    );
+  }
+
+  const DisplayBio = () => {
+    return (
+      <>
+        <h4>ABOUT ME</h4>
+        <StyledBio onClick={handleClick}>
           {bio}
         </StyledBio>
       </>
     );
   }
+
+  return (edit ? <EditBio /> : <DisplayBio />)
 }
 
 export default Bio;
