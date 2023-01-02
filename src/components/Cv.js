@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import Main from './Main';
 import styled from 'styled-components';
@@ -14,15 +13,13 @@ const StyledCv = styled.div`
   box-shadow: 2px 10px 20px #222;
 `
 
-class Cv extends Component {
-  render() {
-    return (
-      <StyledCv>
-        <Sidebar />
-        <Main />
-      </StyledCv>
-    )
-  }
+const Cv = () => {
+  return (
+    <StyledCv>
+      <Sidebar />
+      <Main />
+    </StyledCv>
+  )
 }
 
 export default Cv;
