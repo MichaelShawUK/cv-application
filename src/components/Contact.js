@@ -1,12 +1,10 @@
-import { Component } from "react";
+import { useState } from "react";
 import { FaPhone, FaEnvelope, FaGlobe } from "react-icons/fa";
 import styled from "styled-components";
-
 
 const StyledContact = styled.div`
   padding-left: 10px;
   cursor: pointer;
-
   &:hover {
     text-shadow: 0 0 5px white;
   }
@@ -18,54 +16,27 @@ const StyledInput = styled.input`
   width: 80%;
 `
 
-class Contact extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      phone: "01234 567890",
-      email: "username@example.com",
-      website: "devsite.com",
-      edit: false,
-    }
-    this.handleClick = this.handleClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+const Contact = () => {
+  const [phone, setPhone] = useState("01234 567890");
+  const [email, setEmail] = useState("username@example.com");
+  const [website, setWebsite] = useState("devsite.com");
+  const [edit, setEdit] = useState(false);
+
+  function handleClick() {
+    setEdit(true);
   }
 
-  handleClick() {
-    this.setState({edit: true});
-  }
-
-  handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    this.setState({
-      phone: e.target[0].value,
-      email: e.target[1].value,
-      website: e.target[2].value,
-      edit: false,
-    })
+    setPhone(e.target[0].value);
+    setEmail(e.target[1].value);
+    setWebsite(e.target[2].value);
+    setEdit(false);
   }
 
-  render() {
-    const {edit, email, phone, website} = this.state;
-    
-    if (edit) {
-      return (
-        <StyledContact>
-          <form onSubmit={this.handleSubmit}>
-            <h4><FaPhone /> Phone</h4>
-            <StyledInput defaultValue={phone}></StyledInput>
-            <h4><FaEnvelope /> Email</h4>
-            <StyledInput defaultValue={email}></StyledInput>
-            <h4><FaGlobe /> Website</h4>
-            <StyledInput defaultValue={website}></StyledInput>
-            <button className="sidebar-btn">UPDATE</button>
-          </form>
-        </StyledContact>
-      )
-    }
-
+  const DisplayContact = () => {
     return (
-      <StyledContact onClick={this.handleClick}>
+      <StyledContact onClick={handleClick}>
         <h4><FaPhone /> Phone</h4>
         <p>{phone}</p>
         <h4><FaEnvelope /> Email</h4>
@@ -75,6 +46,24 @@ class Contact extends Component {
       </StyledContact>
     )
   }
+
+  const EditContact = () => {
+    return (
+      <StyledContact>
+        <form onSubmit={handleSubmit}>
+          <h4><FaPhone /> Phone</h4>
+          <StyledInput defaultValue={phone}></StyledInput>
+          <h4><FaEnvelope /> Email</h4>
+          <StyledInput defaultValue={email}></StyledInput>
+          <h4><FaGlobe /> Website</h4>
+          <StyledInput defaultValue={website}></StyledInput>
+          <button className="sidebar-btn">UPDATE</button>
+        </form>
+      </StyledContact>
+    )
+  }
+  
+  return (edit ? <EditContact /> : <DisplayContact />);
 }
 
 export default Contact;
