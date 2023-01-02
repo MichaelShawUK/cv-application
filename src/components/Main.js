@@ -9,7 +9,7 @@ const StyledMain = styled.div`
   margin-right: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #444;
-`
+`;
 const Main = () => {
   return (
     <StyledMain className="main">
@@ -18,7 +18,7 @@ const Main = () => {
       <Experience />
       <Education />
     </StyledMain>
-  )
-}
+  );
+};
 
 export default Main;

@@ -1,6 +1,6 @@
-import Sidebar from './Sidebar';
-import Main from './Main';
-import styled from 'styled-components';
+import Sidebar from "./Sidebar";
+import Main from "./Main";
+import styled from "styled-components";
 
 const StyledCv = styled.div`
   display: grid;
@@ -11,7 +11,7 @@ const StyledCv = styled.div`
   background-color: #fff;
   margin: 50px auto;
   box-shadow: 2px 10px 20px #222;
-`
+`;
 
 const Cv = () => {
   return (
@@ -19,7 +19,7 @@ const Cv = () => {
       <Sidebar />
       <Main />
     </StyledCv>
-  )
-}
+  );
+};
 
 export default Cv;

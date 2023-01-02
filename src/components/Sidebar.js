@@ -9,7 +9,7 @@ const StyledSidebar = styled.div`
   color: white;
   display: grid;
   grid-template-rows: 27% 33% 1fr;
-`
+`;
 
 const Sidebar = () => {
   return (
@@ -18,7 +18,7 @@ const Sidebar = () => {
       <Contact />
       <Skills />
     </StyledSidebar>
-  )
-}
+  );
+};
 
 export default Sidebar;
