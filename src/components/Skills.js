@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useState } from "react";
 import { FaCheck, FaRegPlusSquare } from "react-icons/fa";
 import styled from "styled-components";
 
@@ -8,39 +8,27 @@ const StyledSkills = styled.div`
   &:hover {
     text-shadow: 0 0 5px white;
   }
-`
+`;
 
-class Skills extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      skills: [
-        "HTML, CSS",
-        "JavaScript",
-        "ReactJS",
-        "Git",
-        "Linux",
-      ],
-      edit: false,
-    }
-    this.handleClick = this.handleClick.bind(this);
-    this.handleNewSkillClick = this.handleNewSkillClick.bind(this);
-    this.handleUpdateClick = this.handleUpdateClick.bind(this);
+const Skills = () => {
+  const [skills, setSkills] = useState([
+    "HTML, CSS",
+    "JavaScript",
+    "ReactJS",
+    "Git",
+    "Linux",
+  ]);
+  const [edit, setEdit] = useState(false);
+
+  function handleClick() {
+    setEdit(true);
   }
 
-  handleClick() {
-    this.setState({
-      edit: true,
-    });
-  };
+  function handleAddNewSkill() {
+    setSkills(skills.concat([null]));
+  }
 
-  handleNewSkillClick() {
-    this.setState({
-      skills: this.state.skills.concat([null]),
-    })    
-  };
-
-  handleUpdateClick(e) {
+  function handleUpdateSkills(e) {
     e.preventDefault();
     const newSkills = [];
     for (let i = 0; i < e.target.form.length - 1; i++) {
@@ -50,60 +38,58 @@ class Skills extends Component {
       }
     }
     if (newSkills[0]) {
-      this.setState({
-        skills: newSkills,
-        edit: false,
-      })
+      setSkills(newSkills);
+      setEdit(false);
     } else {
-      this.setState({
-        skills: [null],
-        edit: true,
-      })
-    }    
+      setSkills([null]);
+      setEdit(true);
+    }
   }
 
-  render() {
-    const { skills, edit } = this.state;
-
-    if (edit) {
-      return (
-        <StyledSkills>
-          <h3>Skills</h3>
-          <hr></hr>
-          <form>
-            <ul>
-              {skills.map((skill, index) => {
-                return (<li key={`input${index}`}>
-                          <input
-                          defaultValue={skill}
-                          className="skill-input"></input>
-                        </li>
-                )
-              })}
-            </ul>
-            <FaRegPlusSquare className="plus-btn" onClick={this.handleNewSkillClick}/>
-            <button
-              className="sidebar-btn"
-              onClick={this.handleUpdateClick}>UPDATE</button>
-          </form>
-        </StyledSkills>
-      )
-    }
-
+  const DisplaySkills = () => {
     return (
-      <StyledSkills onClick={this.handleClick}>
+      <StyledSkills onClick={handleClick}>
         <h3>Skills</h3>
         <hr></hr>
         <ul>
           {skills.map((skill, index) => {
-            return <li key={`skill${index}`}>
-                    <FaCheck className="check-mark"/>{skill}
-                  </li>
+            return (
+              <li key={`skill${index}`}>
+                <FaCheck className="check-mark" />
+                {skill}
+              </li>
+            );
           })}
         </ul>
       </StyledSkills>
-    )
-  }
-}
+    );
+  };
+
+  const EditSkills = () => {
+    return (
+      <StyledSkills>
+        <h3>Skills</h3>
+        <hr></hr>
+        <form>
+          <ul>
+            {skills.map((skill, index) => {
+              return (
+                <li key={`input${index}`}>
+                  <input defaultValue={skill} className="skill-input"></input>
+                </li>
+              );
+            })}
+          </ul>
+          <FaRegPlusSquare className="plus-btn" onClick={handleAddNewSkill} />
+          <button className="sidebar-btn" onClick={handleUpdateSkills}>
+            UPDATE
+          </button>
+        </form>
+      </StyledSkills>
+    );
+  };
+
+  return edit ? <EditSkills /> : <DisplaySkills />;
+};
 
 export default Skills;
