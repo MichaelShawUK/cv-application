@@ -1,94 +1,77 @@
-import { Component } from 'react';
+import { useState } from "react";
 import { FaMixer, FaRegPlusSquare } from "react-icons/fa";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledEducationWrapper = styled.div`
   &:hover {
     text-shadow: 0 0 5px black;
     cursor: pointer;
   }
-`
+`;
 
-class Qualification extends Component {
-  render() {
-    return (
-      <div className='qualification'>
-        <div>{this.props.year}</div>
-        <div className="achievement">{this.props.achievement}</div>
-        <span> <FaMixer className="arrow"/> </span>
-        <div className="institute">{this.props.institute}</div>
-        <div>{this.props.description}</div>
-      </div>
-    )
-  }
-}
+const Qualification = (props) => {
+  const { year, achievement, institute, description } = props;
+  return (
+    <div className="qualification">
+      <div>{year}</div>
+      <div className="achievement">{achievement}</div>
+      <span>
+        {" "}
+        <FaMixer className="arrow" />{" "}
+      </span>
+      <div className="institute">{institute}</div>
+      <div>{description}</div>
+    </div>
+  );
+};
 
-class QualificationInput extends Component {
-  render() {
-    return (
-      <div className="qual-input">
-        <input 
-          defaultValue={this.props.year}
-          placeholder="Year"></input>
-        <input 
-          defaultValue={this.props.achievement}
-          placeholder="Qualification"></input>
-        <input 
-          defaultValue={this.props.institute}
-          placeholder="Institute"></input>
-        <textarea 
-          defaultValue={this.props.description}
-          placeholder="Description"></textarea>
-      </div>
-    )
-  }
-}
+const QualificationInput = (props) => {
+  const { year, achievement, institute, description } = props;
+  return (
+    <div className="qual-input">
+      <input defaultValue={year} placeholder="Year"></input>
+      <input defaultValue={achievement} placeholder="Qualification"></input>
+      <input defaultValue={institute} placeholder="Institute"></input>
+      <textarea defaultValue={description} placeholder="Description"></textarea>
+    </div>
+  );
+};
 
-class Education extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      education: [
-        {
-          year: "2019",
-          achievement: "BSc Computer Science",
-          institute: "Foo University",
-          description: "Mauris tincidunt turpis lacus, id aliquam lacus consequat maximus. Proin pulvinar nunc sit amet commodo.",
-        },
-        {
-          year: "2016",
-          achievement: "Diploma",
-          institute: "Acme College",
-          description: "Maecenas sit amet mi lorem. Integer et odio commodo lectus ullamcorper convallis eu sit amet risus. Etiam est.",
-        }
-      ],
-      edit: false,
-    }
-    this.handleClick = this.handleClick.bind(this);
-    this.handleAddQualificationClick = this.handleAddQualificationClick.bind(this);
-    this.handleUpdateEducationClick = this.handleUpdateEducationClick.bind(this);
+const Education = () => {
+  const [education, setEducation] = useState([
+    {
+      year: "2019",
+      achievement: "BSc Computer Science",
+      institute: "Foo University",
+      description:
+        "Mauris tincidunt turpis lacus, id aliquam lacus consequat maximus. Proin pulvinar nunc sit amet commodo.",
+    },
+    {
+      year: "2016",
+      achievement: "Diploma",
+      institute: "Acme College",
+      description:
+        "Maecenas sit amet mi lorem. Integer et odio commodo lectus ullamcorper convallis eu sit amet risus. Etiam est.",
+    },
+  ]);
+  const [edit, setEdit] = useState(false);
+
+  const emptyQualification = {
+    year: "",
+    achievement: "",
+    institute: "",
+    description: "",
+  };
+
+  function handleClick() {
+    setEdit(true);
   }
 
-  handleClick() {
-    this.setState({
-      edit: true,
-    });
+  function handleAddQualification() {
+    setEducation(education.concat([emptyQualification]));
   }
 
-  handleAddQualificationClick() {
-    const emptyQualification = {
-      year: '',
-      achievement: '',
-      institute: '',
-      description: '',
-    }
-
-    this.setState({
-      education: this.state.education.concat([emptyQualification])
-    })
-  }
-
-  handleUpdateEducationClick(e) {
+  function handleUpdateEducation(e) {
     e.preventDefault();
     const newEducation = [];
     const qual = {};
@@ -103,63 +86,24 @@ class Education extends Component {
       newEducation.push(currentQual);
     }
 
-    const removeEmpty = newEducation.filter(input =>
-      (input.year || input.achievement || input.institute || input.description)
-    )
+    const removeEmpty = newEducation.filter(
+      (input) =>
+        input.year || input.achievement || input.institute || input.description
+    );
 
-    const emptyQualification = {
-      year: '',
-      achievement: '',
-      institute: '',
-      description: '',
-    }
-
-    this.setState({education: removeEmpty});
-
+    setEducation(removeEmpty);
     if (removeEmpty.length === 0) {
-      this.setState({
-        edit: true,
-        education: [emptyQualification],
-      })
-    } else {
-      this.setState({edit: false})
-    }
+      setEducation([emptyQualification]);
+      setEdit(true);
+    } else setEdit(false);
   }
 
-  render() {
-    if (this.state.edit) {
-      return (
-        <>
-          <h4>EDUCATION</h4>
-            <form>      
-              {this.state.education.map((qualification, index) => {
-                return (
-                  <QualificationInput
-                    year={qualification.year}
-                    achievement={qualification.achievement}
-                    institute={qualification.institute}
-                    description={qualification.description}
-                    key={`qualificationInput${index}`}
-                  />
-                )
-              })}
-              <div className="flex">
-                <FaRegPlusSquare 
-                  onClick={this.handleAddQualificationClick}
-                  className="plus-btn"
-                />
-                <button onClick={this.handleUpdateEducationClick}>UPDATE</button>
-              </div>
-          </form>
-        </>
-      )
-    }
-
+  const DisplayEducation = () => {
     return (
       <>
         <h4>EDUCATION</h4>
-        <StyledEducationWrapper onClick={this.handleClick}>
-          {this.state.education.map((qualification, index) => {
+        <StyledEducationWrapper onClick={handleClick}>
+          {education.map((qualification, index) => {
             return (
               <Qualification
                 year={qualification.year}
@@ -168,12 +112,42 @@ class Education extends Component {
                 description={qualification.description}
                 key={`qualification${index}`}
               />
-            )
+            );
           })}
         </StyledEducationWrapper>
       </>
-    )
-  }
-}
+    );
+  };
+
+  const EditQualification = () => {
+    return (
+      <>
+        <h4>EDUCATION</h4>
+        <form>
+          {education.map((qualification, index) => {
+            return (
+              <QualificationInput
+                year={qualification.year}
+                achievement={qualification.achievement}
+                institute={qualification.institute}
+                description={qualification.description}
+                key={`qualificationInput${index}`}
+              />
+            );
+          })}
+          <div className="flex">
+            <FaRegPlusSquare
+              onClick={handleAddQualification}
+              className="plus-btn"
+            />
+            <button onClick={handleUpdateEducation}>UPDATE</button>
+          </div>
+        </form>
+      </>
+    );
+  };
+
+  return edit ? <EditQualification /> : <DisplayEducation />;
+};
 
 export default Education;
