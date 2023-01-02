@@ -1,4 +1,3 @@
-import { Component } from "react";
 import Avatar from "./Avatar.js";
 import Contact from "./Contact.js";
 import Skills from "./Skills.js";
@@ -12,16 +11,14 @@ const StyledSidebar = styled.div`
   grid-template-rows: 27% 33% 1fr;
 `
 
-class Sidebar extends Component {
-  render() {
-    return (
-      <StyledSidebar>
-        <Avatar />
-        <Contact />
-        <Skills />
-      </StyledSidebar>
-    )
-  }
+const Sidebar = () => {
+  return (
+    <StyledSidebar>
+      <Avatar />
+      <Contact />
+      <Skills />
+    </StyledSidebar>
+  )
 }
 
 export default Sidebar;
