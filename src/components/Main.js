@@ -1,4 +1,3 @@
-import { Component } from "react";
 import Header from "./Header.js";
 import Bio from "./Bio.js";
 import Experience from "./Experience.js";
@@ -11,18 +10,15 @@ const StyledMain = styled.div`
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #444;
 `
-
-class Main extends Component {
-  render() {
-    return (
-      <StyledMain className="main">
-        <Header />
-        <Bio />
-        <Experience />
-        <Education />
-      </StyledMain>
-    )
-  }
+const Main = () => {
+  return (
+    <StyledMain className="main">
+      <Header />
+      <Bio />
+      <Experience />
+      <Education />
+    </StyledMain>
+  )
 }
 
 export default Main;
